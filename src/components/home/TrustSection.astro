@@ -1,0 +1,44 @@
+---
+import { homepageData } from "../../data/homepage";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+interface Props {
+  trust: typeof homepageData.trust;
+}
+
+const { trust } = Astro.props;
+---
+
+<section id="trust" class="section-shell">
+  <div class="container-page">
+    <SectionHeading title={trust.title} description={trust.intro} />
+
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      {trust.values.map((value) => (
+        <article class="surface-panel p-5">
+          <h3 class="text-base font-semibold">{value.title}</h3>
+          <p class="mt-3 text-sm leading-6 text-text-muted">{value.description}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      {trust.metrics.map((metric) => (
+        <div class="surface-panel p-5">
+          <p class="font-display text-3xl leading-none text-text">{metric.value}</p>
+          <p class="mt-2 text-sm text-text-muted">{metric.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-2">
+      {trust.testimonials.map((item) => (
+        <blockquote class="surface-panel p-5">
+          <p class="text-sm leading-7 text-text">“{item.quote}”</p>
+          <footer class="mt-4 text-sm text-text-muted">— {item.author}</footer>
+        </blockquote>
+      ))}
+    </div>
+  </div>
+</section>
+

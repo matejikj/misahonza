@@ -2,17 +2,20 @@
 
 ## Stav projektu
 
-- Fáze: `Planning / Context setup`
-- Aktivní task: `Žádný (čeká na implementaci)`
+- Fáze: `Task 01 completed (foundation)`
+- Aktivní task: `Žádný (připraveno na Task 02)`
 - Poslední update: `2026-02-23`
 
 ## Hotovo
 
 - Vytvořen agentní kontext a backlog 5 tasků v `agent/`
+- Implementován nový Astro + Tailwind scaffold
+- Vytvořena statická homepage kostra se sekcemi 0-10 (header, hero, materiály, use cases, light sweep fallback, realizace fallback, proces, trust, společníci, FAQ, finální CTA, footer)
+- Zavedena centrální data vrstva `src/data/homepage.ts` a základní design tokeny v `src/styles/global.css`
 
 ## Další doporučený krok
 
-- Začít `agent/tasks/task-01-foundation-static-homepage.md`
+- Pokračovat `agent/tasks/task-02-hero-materials-usecases.md`
 
 ## Blokery / otevřené otázky
 
@@ -23,4 +26,4 @@
 
 - Draft copy je kvalitní a dostatečný pro první implementaci; lze začít s placeholder obsahem a později upravit.
 - Motion efekty držet v mezích definovaných wow-momentů (nepřetížit homepage).
-
+- `Task 01` je implementovaný staticky; interaktivita/motion jsou zatím pouze vizuální fallback preview a poznámky pro další tasky.

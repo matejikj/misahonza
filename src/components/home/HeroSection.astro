@@ -1,0 +1,47 @@
+---
+import { homepageData } from "../../data/homepage";
+import ButtonLink from "../ui/ButtonLink.astro";
+import PlaceholderPanel from "../ui/PlaceholderPanel.astro";
+
+interface Props {
+  hero: typeof homepageData.hero;
+}
+
+const { hero } = Astro.props;
+---
+
+<section id="hero" class="section-shell-xl">
+  <div class="container-page grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+    <div class="lg:col-span-6">
+      <p class="editorial-caption mb-4">{hero.eyebrow}</p>
+      <h1 class="display-title max-w-[16ch]">{hero.title}</h1>
+      <p class="body-copy mt-5 max-w-readable text-base md:text-lg">{hero.subtitle}</p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <ButtonLink href={hero.primaryCta.href} label={hero.primaryCta.label} />
+        <ButtonLink
+          href={hero.secondaryCta.href}
+          label={hero.secondaryCta.label}
+          variant="secondary"
+        />
+      </div>
+
+      <ul class="mt-7 flex flex-wrap gap-2">
+        {hero.trustPoints.map((point) => (
+          <li class="chip">{point}</li>
+        ))}
+      </ul>
+
+      <p class="mt-5 max-w-readable text-sm leading-6 text-text-muted">{hero.helperText}</p>
+    </div>
+
+    <div class="lg:col-span-6">
+      <PlaceholderPanel
+        label="Prémiový interiér / denní světlo / dekorativní stěrka"
+        ratio="portrait"
+        class="rounded-[28px] shadow-floating"
+      />
+    </div>
+  </div>
+</section>
+

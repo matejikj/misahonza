@@ -1,0 +1,41 @@
+---
+import { homepageData } from "../../data/homepage";
+import ButtonLink from "../ui/ButtonLink.astro";
+
+interface Props {
+  nav: typeof homepageData.nav;
+}
+
+const { nav } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 border-b hairline bg-bg/80 backdrop-blur supports-[backdrop-filter]:bg-bg/70">
+  <div class="container-page flex h-16 items-center justify-between gap-4 md:h-20">
+    <a href="/" class="focus-ring inline-flex items-center gap-2 rounded-full px-2 py-1">
+      <span class="h-2 w-2 rounded-full bg-accent"></span>
+      <span class="font-display text-lg tracking-tight">Sculpted Light</span>
+    </a>
+
+    <nav aria-label="Hlavní navigace" class="hidden items-center gap-1 md:flex">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class="focus-ring rounded-full px-3 py-2 text-sm font-medium text-text-muted transition hover:bg-highlight hover:text-text"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border hairline bg-surface text-text md:hidden"
+        aria-label="Menu (Task 01 placeholder)"
+      >
+        <span aria-hidden="true">≡</span>
+      </button>
+      <ButtonLink href="#contact" label="Konzultace" class="hidden md:inline-flex" />
+    </div>
+  </div>
+</header>

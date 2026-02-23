@@ -1,0 +1,45 @@
+---
+import { homepageData } from "../../data/homepage";
+import ButtonLink from "../ui/ButtonLink.astro";
+import PlaceholderPanel from "../ui/PlaceholderPanel.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+interface Props {
+  process: typeof homepageData.process;
+}
+
+const { process } = Astro.props;
+---
+
+<section id="process" class="section-shell bg-bg-soft/60">
+  <div class="container-page">
+    <div class="grid gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <SectionHeading title={process.title} description={process.intro} />
+        <div class="mt-6">
+          <ButtonLink href={process.cta.href} label={process.cta.label} />
+        </div>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div class="grid gap-4">
+          {process.steps.map((step, index) => (
+            <article class="surface-panel grid gap-4 p-5 md:grid-cols-[auto_1fr_auto] md:items-start">
+              <div class="flex h-9 w-9 items-center justify-center rounded-full bg-highlight text-sm font-semibold text-text">
+                {index + 1}
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-text">{step.title}</h3>
+                <p class="mt-2 text-sm leading-6 text-text-muted">{step.description}</p>
+              </div>
+              <div class="hidden md:block">
+                <PlaceholderPanel label={`Detail ${index + 1}`} ratio="square" class="w-28" />
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

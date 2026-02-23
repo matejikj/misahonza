@@ -1,0 +1,58 @@
+---
+import { homepageData } from "../../data/homepage";
+import ButtonLink from "../ui/ButtonLink.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+interface Props {
+  materials: typeof homepageData.materials;
+}
+
+const { materials } = Astro.props;
+---
+
+<section id="materials" class="section-shell bg-bg-soft/60">
+  <div class="container-page">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-8">
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-28">
+          <SectionHeading title={materials.title} description={materials.intro} />
+          <div class="mt-6">
+            <ButtonLink href={materials.cta.href} label={materials.cta.label} variant="secondary" />
+          </div>
+          <p class="editorial-caption mt-8">Task 01 fallback: statický grid (motion přijde později)</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div class="grid gap-4 sm:grid-cols-2">
+          {materials.items.map((item, index) => (
+            <article
+              class="surface-panel flex h-full flex-col p-5"
+              style={`background-image: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.96)), radial-gradient(circle at ${20 + (index % 3) * 25}% ${18 + (index % 2) * 38}%, rgba(183,140,90,.09), transparent 48%);`}
+            >
+              <p class="editorial-caption">{String(index + 1).padStart(2, "0")} / Vzorek</p>
+              <h3 class="mt-3 text-lg font-semibold leading-6 text-text">{item.name}</h3>
+              <p class="mt-2 text-sm leading-6 text-text-muted">{item.description}</p>
+              <p class="mt-4 text-sm leading-6 text-text">
+                <span class="font-medium">Vhodné pro:</span> {item.suitableFor}
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {item.tags.map((tag) => (
+                  <span class="rounded-full bg-highlight px-3 py-1 text-xs font-medium text-text">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div class="mt-auto pt-5">
+                <div class="rounded-md border hairline bg-surface/80 px-3 py-2 text-xs text-text-muted">
+                  Tón / reference: <span class="font-medium text-text">{item.tone}</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

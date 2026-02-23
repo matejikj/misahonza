@@ -1,0 +1,34 @@
+---
+import Footer from "../components/home/Footer.astro";
+import FaqSection from "../components/home/FaqSection.astro";
+import FinalCtaSection from "../components/home/FinalCtaSection.astro";
+import FoundersSection from "../components/home/FoundersSection.astro";
+import Header from "../components/home/Header.astro";
+import HeroSection from "../components/home/HeroSection.astro";
+import LightSweepSection from "../components/home/LightSweepSection.astro";
+import MaterialsSection from "../components/home/MaterialsSection.astro";
+import ProcessSection from "../components/home/ProcessSection.astro";
+import ProjectsSection from "../components/home/ProjectsSection.astro";
+import TrustSection from "../components/home/TrustSection.astro";
+import UseCasesSection from "../components/home/UseCasesSection.astro";
+import { homepageData } from "../data/homepage";
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+  <Header nav={homepageData.nav} />
+  <main>
+    <HeroSection hero={homepageData.hero} />
+    <MaterialsSection materials={homepageData.materials} />
+    <UseCasesSection useCases={homepageData.useCases} />
+    <LightSweepSection lightSweep={homepageData.lightSweep} />
+    <ProjectsSection projects={homepageData.projects} />
+    <ProcessSection process={homepageData.process} />
+    <TrustSection trust={homepageData.trust} />
+    <FoundersSection founders={homepageData.founders} />
+    <FaqSection faq={homepageData.faq} />
+    <FinalCtaSection contact={homepageData.contact} />
+  </main>
+  <Footer footer={homepageData.footer} />
+</MainLayout>
+

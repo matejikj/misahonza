@@ -1,0 +1,28 @@
+---
+interface Props {
+  label: string;
+  ratio?: "square" | "portrait" | "landscape" | "wide";
+  class?: string;
+}
+
+const { label, ratio = "portrait", class: className = "" } = Astro.props;
+
+const ratioMap = {
+  square: "aspect-square",
+  portrait: "aspect-[4/5]",
+  landscape: "aspect-[5/4]",
+  wide: "aspect-[16/9]",
+} as const;
+---
+
+<div class:list={["surface-panel overflow-hidden", ratioMap[ratio], className]}>
+  <div class="placeholder-ambient relative h-full w-full p-4">
+    <div class="placeholder-texture absolute inset-4 rounded-md opacity-70"></div>
+    <div class="absolute inset-0 flex items-end p-4">
+      <div class="rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-text shadow-soft backdrop-blur">
+        {label}
+      </div>
+    </div>
+  </div>
+</div>
+
