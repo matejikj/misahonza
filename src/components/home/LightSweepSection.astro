@@ -10,15 +10,17 @@ interface Props {
 const { lightSweep } = Astro.props;
 ---
 
-<section id="light-sweep" class="section-shell bg-bg-soft/40">
+<section id="light-sweep" class="section-shell bg-bg-soft/40" data-light-sweep-root>
   <div class="container-page">
-    <div class="surface-panel overflow-hidden p-5 md:p-8">
+    <div class="surface-panel overflow-hidden p-5 md:p-8" data-light-sweep-panel>
       <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
         <div class="lg:col-span-5">
           <SectionHeading title={lightSweep.title} description={lightSweep.description} />
           <ul class="mt-6 space-y-2">
             {lightSweep.states.map((state, idx) => (
               <li
+                data-light-sweep-state-item
+                data-active={idx === 1 ? "true" : "false"}
                 class:list={[
                   "rounded-md border px-3 py-2 text-sm",
                   idx === 1
@@ -33,16 +35,34 @@ const { lightSweep } = Astro.props;
           <div class="mt-6">
             <ButtonLink href={lightSweep.cta.href} label={lightSweep.cta.label} variant="secondary" />
           </div>
-          <p class="editorial-caption mt-6">Task 01 fallback: statická textura bez scroll motion</p>
+          <p class="editorial-caption mt-6">
+            Task 03: scroll-driven light sweep (desktop), mobile/reduced-motion fallback
+          </p>
         </div>
 
         <div class="lg:col-span-7">
           <div class="surface-panel relative aspect-[16/10] overflow-hidden rounded-lg shadow-card">
-            <div class="placeholder-texture absolute inset-0"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/45 to-transparent"></div>
-            <div class="absolute inset-y-0 left-[32%] w-[28%] bg-gradient-to-r from-transparent via-white/65 to-transparent blur-xl"></div>
+            <div class="placeholder-texture absolute inset-0 transition-transform duration-300" data-light-sweep-texture></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-80"></div>
+            <div
+              class="pointer-events-none absolute inset-y-0 left-[-10%] w-[34%] bg-gradient-to-r from-transparent via-white/65 to-transparent opacity-55 blur-xl transition-transform duration-300"
+              data-light-sweep-beam-soft
+            ></div>
+            <div
+              class="pointer-events-none absolute inset-y-0 left-[-5%] w-[22%] bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-65 transition-transform duration-300"
+              data-light-sweep-beam
+            ></div>
             <div class="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium shadow-soft backdrop-blur">
-              Makro textura / světelný sweep preview
+              Makro textura / světelný sweep
+            </div>
+            <div class="absolute bottom-4 left-4 right-4 rounded-md border hairline bg-surface/85 p-3 backdrop-blur">
+              <div class="flex items-center justify-between gap-4">
+                <p class="editorial-caption">Atmosféra během dne</p>
+                <div class="h-px flex-1 bg-line"></div>
+              </div>
+              <div class="mt-2 text-sm text-text-muted">
+                Světelný pás ukazuje, jak se mění kresba a hloubka povrchu s úhlem světla.
+              </div>
             </div>
           </div>
         </div>
@@ -51,3 +71,29 @@ const { lightSweep } = Astro.props;
   </div>
 </section>
 
+<script>
+  const root = document.querySelector<HTMLElement>("[data-light-sweep-root]");
+
+  if (root && root.dataset.visibleObserverBound !== "true") {
+    root.dataset.visibleObserverBound = "true";
+
+    const boot = async () => {
+      const module = await import("../../scripts/motion/lightSweep");
+      await module.initLightSweep(root);
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          void boot();
+        },
+        { rootMargin: "200px 0px" },
+      );
+      observer.observe(root);
+    } else {
+      void boot();
+    }
+  }
+</script>

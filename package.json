@@ -11,7 +11,8 @@
     "check": "astro check"
   },
   "dependencies": {
-    "astro": "^5.2.0"
+    "astro": "^5.2.0",
+    "gsap": "^3.13.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.0",
@@ -21,4 +22,3 @@
     "typescript": "^5.7.2"
   }
 }
-

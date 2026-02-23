@@ -9,13 +9,19 @@ interface Props {
 }
 
 const { projects } = Astro.props;
+const firstProject = projects.items[0];
+const secondProject = projects.items[1] ?? projects.items[0];
 ---
 
-<section id="projects" class="section-shell">
+<section id="projects" class="section-shell" data-projects-root data-items={JSON.stringify(projects.items)}>
   <div class="container-page">
     <SectionHeading title={projects.title} description={projects.intro} />
 
-    <div class="mt-8 grid gap-6 lg:grid-cols-3">
+    <div class="mt-8 grid gap-6" data-projects-fallback>
+      <div class="hidden lg:block rounded-lg border hairline bg-bg-soft/40 p-4 text-sm text-text-muted">
+        Desktop fallback bez JS/reduced-motion: zobrazujeme kurátorsky všechny 3 realizace jako grid.
+      </div>
+      <div class="grid gap-6 lg:grid-cols-3">
       {projects.items.map((project, index) => (
         <article class="surface-panel overflow-hidden">
           <div class="p-4">
@@ -34,13 +40,148 @@ const { projects } = Astro.props;
           </div>
         </article>
       ))}
+      </div>
+    </div>
+
+    <div class="mt-8 hidden" data-projects-stage>
+      <div class="relative min-h-[190svh]">
+        <div class="sticky top-24" data-projects-pin>
+          <div class="mx-auto max-w-4xl">
+            <div class="projects-flip-perspective">
+              <div class="projects-flip-card-inner" data-flip-card-inner>
+                <article class="projects-flip-face projects-flip-face-front surface-panel overflow-hidden" data-flip-face="front">
+                  <div class="border-b hairline p-4">
+                    <div class="placeholder-ambient relative aspect-[16/10] overflow-hidden rounded-md">
+                      <div class="placeholder-texture absolute inset-0"></div>
+                      <div class="absolute inset-x-4 bottom-4 rounded-md border hairline bg-surface/85 p-3 backdrop-blur">
+                        <p class="editorial-caption">Realizace / front</p>
+                        <p class="mt-2 text-sm font-medium text-text" data-face-image-label>
+                          {firstProject.imageLabel}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-5">
+                    <h3 class="text-xl font-semibold leading-7" data-face-title>{firstProject.title}</h3>
+                    <p class="mt-3 text-sm leading-6 text-text-muted" data-face-insight>{firstProject.insight}</p>
+                    <div class="mt-4 grid gap-2 text-sm text-text-muted md:grid-cols-2">
+                      <p>
+                        Lokalita: <span class="font-medium text-text" data-face-location>{firstProject.location}</span>
+                      </p>
+                      <p>
+                        Povrch: <span class="font-medium text-text" data-face-surface>{firstProject.surface}</span>
+                      </p>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="projects-flip-face projects-flip-face-back surface-panel overflow-hidden" data-flip-face="back">
+                  <div class="border-b hairline p-4">
+                    <div class="placeholder-ambient relative aspect-[16/10] overflow-hidden rounded-md">
+                      <div class="placeholder-texture absolute inset-0"></div>
+                      <div class="absolute inset-x-4 bottom-4 rounded-md border hairline bg-surface/85 p-3 backdrop-blur">
+                        <p class="editorial-caption">Realizace / back</p>
+                        <p class="mt-2 text-sm font-medium text-text" data-face-image-label>
+                          {secondProject.imageLabel}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-5">
+                    <h3 class="text-xl font-semibold leading-7" data-face-title>{secondProject.title}</h3>
+                    <p class="mt-3 text-sm leading-6 text-text-muted" data-face-insight>{secondProject.insight}</p>
+                    <div class="mt-4 grid gap-2 text-sm text-text-muted md:grid-cols-2">
+                      <p>
+                        Lokalita: <span class="font-medium text-text" data-face-location>{secondProject.location}</span>
+                      </p>
+                      <p>
+                        Povrch: <span class="font-medium text-text" data-face-surface>{secondProject.surface}</span>
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div class="surface-panel mt-5 p-5">
+              <div class="flex items-center justify-between gap-4">
+                <p class="editorial-caption" data-project-progress>01 / 03</p>
+                <div class="h-1 w-32 overflow-hidden rounded-full bg-bg-soft md:w-40">
+                  <div class="h-full rounded-full bg-accent transition-all duration-300" style="width:33%" data-project-progress-bar></div>
+                </div>
+              </div>
+              <h3 class="mt-4 text-lg font-semibold leading-6" data-project-meta-title>{firstProject.title}</h3>
+              <p class="mt-2 text-sm leading-6 text-text-muted" data-project-meta-insight>{firstProject.insight}</p>
+              <div class="mt-4 grid gap-2 text-sm md:grid-cols-2">
+                <p>
+                  Lokalita: <span class="font-medium text-text" data-project-meta-location>{firstProject.location}</span>
+                </p>
+                <p>
+                  Povrch: <span class="font-medium text-text" data-project-meta-surface>{firstProject.surface}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="editorial-caption mt-4">
+        Task 03: desktop flip galerie (GSAP/ScrollTrigger), fallback grid zůstává pro mobile / reduced-motion / no-JS.
+      </p>
     </div>
 
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
       <ButtonLink href={projects.ctas[0].href} label={projects.ctas[0].label} variant="secondary" />
       <ButtonLink href={projects.ctas[1].href} label={projects.ctas[1].label} />
     </div>
-    <p class="editorial-caption mt-5">Task 01 fallback: 3 karty místo flip galerie</p>
   </div>
 </section>
 
+<script>
+  const root = document.querySelector<HTMLElement>("[data-projects-root]");
+
+  if (root && root.dataset.visibleObserverBound !== "true") {
+    root.dataset.visibleObserverBound = "true";
+
+    const boot = async () => {
+      const module = await import("../../scripts/motion/projectsFlip");
+      await module.initProjectsFlip(root);
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          void boot();
+        },
+        { rootMargin: "240px 0px" },
+      );
+      observer.observe(root);
+    } else {
+      void boot();
+    }
+  }
+</script>
+
+<style>
+  .projects-flip-perspective {
+    perspective: 1400px;
+  }
+
+  .projects-flip-card-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    min-height: 34rem;
+  }
+
+  .projects-flip-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .projects-flip-face-back {
+    transform: rotateY(180deg);
+  }
+</style>
