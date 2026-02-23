@@ -9,7 +9,10 @@ interface Props {
 const { nav } = Astro.props;
 ---
 
-<header class="sticky top-0 z-40 border-b hairline bg-bg/80 backdrop-blur supports-[backdrop-filter]:bg-bg/70">
+<header
+  data-site-header
+  class="sticky top-0 z-40 border-b border-transparent bg-transparent transition-all duration-300"
+>
   <div class="container-page flex h-16 items-center justify-between gap-4 md:h-20">
     <a href="/" class="focus-ring inline-flex items-center gap-2 rounded-full px-2 py-1">
       <span class="h-2 w-2 rounded-full bg-accent"></span>
@@ -39,3 +42,28 @@ const { nav } = Astro.props;
     </div>
   </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector("[data-site-header]");
+    if (!header || header.dataset.bound === "true") return;
+    header.dataset.bound = "true";
+
+    const scrolledClasses = [
+      "bg-bg/80",
+      "hairline",
+      "backdrop-blur",
+      "supports-[backdrop-filter]:bg-bg/70",
+      "shadow-soft",
+    ];
+
+    const update = () => {
+      const isScrolled = window.scrollY > 40;
+      header.dataset.scrolled = isScrolled ? "true" : "false";
+      scrolledClasses.forEach((className) => header.classList.toggle(className, isScrolled));
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  })();
+</script>
