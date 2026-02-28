@@ -27,6 +27,9 @@ export type ProjectItem = {
   surface: string;
   imageLabel: string;
   image: string;
+  brief: string;
+  solution: string;
+  lightEffect: string;
 };
 
 export type ProcessStep = {
@@ -214,6 +217,9 @@ export const homepageData = {
         surface: "Dekorativní stěrka / jemná textura",
         imageLabel: "Vila / koupelna / denní světlo",
         image: "/images/realizace/vila-koupelna.jpeg",
+        brief: "Luxusní koupelna s požadavkem na sjednocení ploch bez rušivých přechodů.",
+        solution: "Jemná dekorativní stěrka v teplém neutrálním tónu s precizní návazností detailů.",
+        lightEffect: "Ranní světlo vytváří měkký saténový odraz a večer povrch působí klidněji.",
       },
       {
         title: "Městský byt · obývací stěna",
@@ -222,6 +228,9 @@ export const homepageData = {
         surface: "Betonová stěrka / hladký finish",
         imageLabel: "Byt / obývací stěna / měkké světlo",
         image: "/images/realizace/byt-obyvaci-stena.jpeg",
+        brief: "Dominantní stěna měla působit čistě, ale ne ploše a bez výrazného efektu.",
+        solution: "Hladký minerální finish s jemnou kresbou, který drží minimalistický charakter.",
+        lightEffect: "Boční denní světlo odhalí subtilní strukturu, večer stěna vizuálně ztiší prostor.",
       },
       {
         title: "Showroom · vstupní zóna",
@@ -231,6 +240,9 @@ export const homepageData = {
         surface: "Dekorativní strukturovaný povrch",
         imageLabel: "Showroom / vstupní zóna / detail",
         image: "/images/realizace/showroom-vstup.jpeg",
+        brief: "Vstupní zóna potřebovala silný první dojem a materiálový podpis značky.",
+        solution: "Strukturovaný dekorativní povrch s vyšší plasticitou a kontrolovaným kontrastem.",
+        lightEffect: "Akcentní nasvětlení zdůrazňuje reliéf a v pohybu návštěvníka mění hloubku stěny.",
       },
     ] satisfies ProjectItem[],
   },

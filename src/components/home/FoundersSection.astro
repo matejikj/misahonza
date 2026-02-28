@@ -1,5 +1,6 @@
 ---
 import { homepageData } from "../../data/homepage";
+import { withBase } from "../../utils/withBase";
 import ButtonLink from "../ui/ButtonLink.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const { founders } = Astro.props;
-const founderPhotos = ["/images/persons/honza.jpeg", "/images/persons/misa.jpeg"];
+const founderPhotos = [withBase("/images/persons/honza.jpeg"), withBase("/images/persons/misa.jpeg")];
 const founderPhotoPositions = ["50% 22%", "50% 16%"];
 ---
 

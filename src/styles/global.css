@@ -20,6 +20,10 @@
   --shadow-soft: 0 8px 24px rgba(30, 29, 26, 0.06);
   --shadow-card: 0 16px 38px rgba(30, 29, 26, 0.08);
   --shadow-floating: 0 24px 60px rgba(30, 29, 26, 0.1);
+  --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --motion-hover: 260ms;
+  --motion-reveal: 620ms;
+  --motion-distance: 14px;
 }
 
 html {
@@ -70,6 +74,10 @@ a {
 
 .surface-panel {
   @apply rounded-lg border hairline bg-surface shadow-soft;
+  transition:
+    box-shadow var(--motion-hover) var(--motion-ease),
+    border-color var(--motion-hover) var(--motion-ease),
+    transform var(--motion-hover) var(--motion-ease);
 }
 
 .editorial-caption {
@@ -105,14 +113,23 @@ a {
 
 .cta-primary {
   @apply inline-flex min-h-[44px] items-center justify-center rounded-full bg-text px-5 py-3 text-sm font-semibold text-white transition hover:opacity-95;
+  transition-duration: var(--motion-hover);
+  transition-timing-function: var(--motion-ease);
 }
 
 .cta-secondary {
   @apply inline-flex min-h-[44px] items-center justify-center rounded-full border hairline bg-surface px-5 py-3 text-sm font-semibold text-text transition hover:bg-highlight;
+  transition-duration: var(--motion-hover);
+  transition-timing-function: var(--motion-ease);
 }
 
 .chip {
   @apply inline-flex min-h-[44px] items-center rounded-full border hairline bg-surface px-4 py-2 text-sm font-medium text-text-muted;
+  transition:
+    background-color var(--motion-hover) var(--motion-ease),
+    color var(--motion-hover) var(--motion-ease),
+    border-color var(--motion-hover) var(--motion-ease),
+    transform var(--motion-hover) var(--motion-ease);
 }
 
 .chip-active {
@@ -162,6 +179,20 @@ a {
   transform: translateY(0);
 }
 
+[data-motion-reveal] {
+  opacity: 0;
+  transform: translateY(var(--motion-distance));
+  transition:
+    opacity var(--motion-reveal) var(--motion-ease),
+    transform var(--motion-reveal) var(--motion-ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-motion-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -173,5 +204,10 @@ a {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  [data-motion-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

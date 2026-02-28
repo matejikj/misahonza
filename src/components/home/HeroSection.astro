@@ -1,5 +1,6 @@
 ---
 import { homepageData } from "../../data/homepage";
+import { withBase } from "../../utils/withBase";
 import ButtonLink from "../ui/ButtonLink.astro";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const { hero } = Astro.props;
+const heroImageSrc = withBase("/images/hero.jpeg");
 ---
 
 <section
@@ -15,7 +17,7 @@ const { hero } = Astro.props;
 >
   <div class="pointer-events-none absolute inset-0 -z-10">
     <img
-      src="/images/hero.jpeg"
+      src={heroImageSrc}
       alt=""
       aria-hidden="true"
       class="h-full w-full object-cover object-center"

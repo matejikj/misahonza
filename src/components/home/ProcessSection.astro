@@ -1,5 +1,6 @@
 ---
 import { homepageData } from "../../data/homepage";
+import { withBase } from "../../utils/withBase";
 import ButtonLink from "../ui/ButtonLink.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 
@@ -8,18 +9,19 @@ interface Props {
 }
 
 const { process } = Astro.props;
-const firstStep = process.steps[0];
+const processSteps = process.steps.map((step) => ({ ...step, image: withBase(step.image) }));
+const firstStep = processSteps[0];
 ---
 
 <section
   id="process"
   class="section-shell bg-bg-soft/60"
   data-process-root
-  data-steps={JSON.stringify(process.steps)}
+  data-steps={JSON.stringify(processSteps)}
 >
   <div class="container-page">
     <div class="grid gap-8 lg:grid-cols-12">
-      <div class="lg:col-span-4">
+      <div class="lg:col-span-4" data-motion-reveal>
         <div class="lg:sticky lg:top-28">
           <SectionHeading title={process.title} description={process.intro} />
           <div class="mt-6">
@@ -28,7 +30,7 @@ const firstStep = process.steps[0];
           <div class="surface-panel mt-6 p-5">
             <p class="editorial-caption">Aktivní krok procesu</p>
             <p class="mt-2 text-sm font-semibold text-text" data-process-step-index>
-              01 / {String(process.steps.length).padStart(2, "0")}
+              01 / {String(processSteps.length).padStart(2, "0")}
             </p>
             <h3 class="mt-3 text-lg font-semibold" data-process-step-title>{firstStep.title}</h3>
             <p class="mt-2 text-sm leading-6 text-text-muted" data-process-step-description>
@@ -62,9 +64,9 @@ const firstStep = process.steps[0];
         </div>
       </div>
 
-      <div class="lg:col-span-8">
+      <div class="lg:col-span-8" data-motion-reveal style="--reveal-delay:110ms">
         <div class="hidden gap-4 lg:grid">
-          {process.steps.map((step, index) => (
+          {processSteps.map((step, index) => (
             <article
               class="process-step-card surface-panel grid gap-4 p-5 md:grid-cols-[auto_1fr_auto] md:items-start"
               data-step-card
@@ -94,7 +96,7 @@ const firstStep = process.steps[0];
         </div>
 
         <div class="space-y-3 lg:hidden">
-          {process.steps.map((step, index) => (
+          {processSteps.map((step, index) => (
             <details class="surface-panel group p-0" open={index === 0}>
               <summary class="focus-ring flex list-none cursor-pointer items-center justify-between gap-4 rounded-lg px-5 py-4 text-left">
                 <span class="text-sm font-semibold text-text">
@@ -185,9 +187,9 @@ const firstStep = process.steps[0];
 <style>
   .process-step-card {
     transition:
-      border-color 180ms ease,
-      transform 180ms ease,
-      box-shadow 180ms ease;
+      border-color var(--motion-hover, 260ms) var(--motion-ease, cubic-bezier(0.22, 0.61, 0.36, 1)),
+      transform var(--motion-hover, 260ms) var(--motion-ease, cubic-bezier(0.22, 0.61, 0.36, 1)),
+      box-shadow var(--motion-hover, 260ms) var(--motion-ease, cubic-bezier(0.22, 0.61, 0.36, 1));
   }
 
   .process-step-card[data-active="true"] {

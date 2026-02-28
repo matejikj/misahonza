@@ -1,5 +1,6 @@
 ---
 import { homepageData } from "../../data/homepage";
+import { withBase } from "../../utils/withBase";
 import ButtonLink from "../ui/ButtonLink.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { materials } = Astro.props;
+const materialItems = materials.items.map((item) => ({ ...item, image: withBase(item.image) }));
 ---
 
 <section
@@ -16,17 +18,19 @@ const { materials } = Astro.props;
   data-materials-root
 >
   <div class="container-page">
-    <SectionHeading title={materials.title} description={materials.intro} />
+    <div data-motion-reveal>
+      <SectionHeading title={materials.title} description={materials.intro} />
+    </div>
 
-    <div class="mt-8">
+    <div class="mt-8" data-motion-reveal style="--reveal-delay:90ms">
       <div class="relative hidden min-h-[46rem] lg:block" data-material-stack-desktop>
-        {materials.items.map((item, index) => (
+        {materialItems.map((item, index) => (
           <article
             class="material-stack-card material-stack-card--desktop focus-ring absolute w-full max-w-[94%] overflow-hidden rounded-lg border border-transparent text-left shadow-soft transition"
             data-material-card
             data-index={String(index)}
             tabindex="0"
-            style={`top:${index * 52}px; left:${index * 14}px; --stack-z:${materials.items.length - index}; background-image: linear-gradient(150deg, rgba(30,29,26,.03), rgba(30,29,26,.18)), url('${item.image}'); background-size:auto, cover; background-position:center; background-repeat:no-repeat;`}
+            style={`top:${index * 52}px; left:${index * 14}px; --stack-z:${materialItems.length - index}; background-image: linear-gradient(150deg, rgba(30,29,26,.03), rgba(30,29,26,.18)), url('${item.image}'); background-size:auto, cover; background-position:center; background-repeat:no-repeat;`}
           >
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-black/8 to-transparent"></div>
             <div class="material-info-glass absolute inset-x-4 bottom-4 p-4">
@@ -54,7 +58,7 @@ const { materials } = Astro.props;
       </div>
 
       <div class="grid gap-4 lg:hidden" data-material-stack-mobile>
-        {materials.items.map((item, index) => (
+        {materialItems.map((item, index) => (
           <article
             class="surface-panel relative min-h-[27rem] overflow-hidden"
             style={`background-image: linear-gradient(150deg, rgba(30,29,26,.03), rgba(30,29,26,.2)), url('${item.image}'); background-size:auto, cover; background-position:center; background-repeat:no-repeat;`}
@@ -85,7 +89,7 @@ const { materials } = Astro.props;
       </div>
     </div>
 
-    <div class="mt-8">
+    <div class="mt-8" data-motion-reveal style="--reveal-delay:160ms">
       <ButtonLink href={materials.cta.href} label={materials.cta.label} variant="secondary" />
     </div>
   </div>
@@ -97,6 +101,10 @@ const { materials } = Astro.props;
     transform: translateY(0) scale(0.985);
     min-height: 30rem;
     border-color: rgba(110, 106, 99, 0.14);
+    transition:
+      transform var(--motion-hover, 260ms) var(--motion-ease, cubic-bezier(0.22, 0.61, 0.36, 1)),
+      box-shadow var(--motion-hover, 260ms) var(--motion-ease, cubic-bezier(0.22, 0.61, 0.36, 1)),
+      border-color var(--motion-hover, 260ms) var(--motion-ease, cubic-bezier(0.22, 0.61, 0.36, 1));
   }
 
   .material-stack-card--desktop:hover,

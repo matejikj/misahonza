@@ -1,5 +1,6 @@
 ---
 import { homepageData } from "../../data/homepage";
+import { withBase } from "../../utils/withBase";
 import ButtonLink from "../ui/ButtonLink.astro";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const { nav } = Astro.props;
+const logoSrc = withBase("/images/kabe_farben_slavicin_logo.jpg");
 ---
 
 <header
@@ -14,9 +16,9 @@ const { nav } = Astro.props;
   class="sticky top-0 z-40 border-b border-transparent bg-transparent transition-all duration-300"
 >
   <div class="container-page flex h-16 items-center justify-between gap-4 md:h-20">
-    <a href="/" class="focus-ring inline-flex items-center rounded-full px-2 py-1">
+    <a href={import.meta.env.BASE_URL} class="focus-ring inline-flex items-center rounded-full px-2 py-1">
       <img
-        src="/images/kabe_farben_slavicin_logo.jpg"
+        src={logoSrc}
         alt="KABE Farben Slavičín"
         class="h-8 w-auto rounded-sm md:h-10"
         loading="eager"
@@ -77,7 +79,7 @@ const { nav } = Astro.props;
   >
     <div class="flex items-center justify-between gap-3 border-b hairline px-5 py-4">
       <img
-        src="/images/kabe_farben_slavicin_logo.jpg"
+        src={logoSrc}
         alt="KABE Farben Slavičín"
         class="h-7 w-auto rounded-sm"
         loading="eager"

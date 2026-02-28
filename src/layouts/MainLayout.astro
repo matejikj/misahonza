@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { withBase } from "../utils/withBase";
 
 interface Props {
   title?: string;
@@ -13,6 +14,7 @@ const {
 
 const site = Astro.site ?? (import.meta.env.PUBLIC_SITE_URL ? new URL(import.meta.env.PUBLIC_SITE_URL) : undefined);
 const canonicalUrl = site ? new URL(Astro.url.pathname, site).toString() : undefined;
+const faviconUrl = withBase("/images/kabe_farben_slavicin_logo.jpg");
 ---
 
 <!doctype html>
@@ -33,11 +35,37 @@ const canonicalUrl = site ? new URL(Astro.url.pathname, site).toString() : undef
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <link rel="icon" href={faviconUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Přeskočit na obsah</a>
     <slot />
+    <script is:inline>
+      (() => {
+        const items = Array.from(document.querySelectorAll("[data-motion-reveal]"));
+        if (!items.length) return;
+
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduced || !("IntersectionObserver" in window)) {
+          items.forEach((item) => item.classList.add("is-visible"));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -10% 0px" },
+        );
+
+        items.forEach((item) => observer.observe(item));
+      })();
+    </script>
   </body>
 </html>
