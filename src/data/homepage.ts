@@ -9,6 +9,7 @@ export type MaterialItem = {
   suitableFor: string;
   tags: string[];
   tone: string;
+  image: string;
 };
 
 export type UseCase = {
@@ -16,6 +17,7 @@ export type UseCase = {
   description: string;
   bullets: string[];
   imageLabel: string;
+  image: string;
 };
 
 export type ProjectItem = {
@@ -24,11 +26,13 @@ export type ProjectItem = {
   location: string;
   surface: string;
   imageLabel: string;
+  image: string;
 };
 
 export type ProcessStep = {
   title: string;
   description: string;
+  image: string;
 };
 
 export type ValueCard = {
@@ -83,6 +87,7 @@ export const homepageData = {
         suitableFor: "Obývací prostory, ložnice, pracovny",
         tags: ["Klidný výraz", "Jemná textura", "Nadčasový vzhled"],
         tone: "Warm Sand",
+        image: "/images/povrchy/jemna-betonova-sterka.jpeg",
       },
       {
         name: "Strukturovaná betonová stěrka",
@@ -90,6 +95,7 @@ export const homepageData = {
         suitableFor: "Akcentní stěny, haly, komerční interiéry",
         tags: ["Výrazný detail", "Silná atmosféra", "Designový efekt"],
         tone: "Stone Shadow",
+        image: "/images/povrchy/strukturovana-betonova-sterka.jpeg",
       },
       {
         name: "Dekorativní cloud efekt",
@@ -97,6 +103,7 @@ export const homepageData = {
         suitableFor: "Reprezentativní interiéry, ložnice, showroomy",
         tags: ["Práce se světlem", "Elegantní přechody", "Prémiový dojem"],
         tone: "Cloud Ivory",
+        image: "/images/povrchy/dekorativni-cloud-efekt.jpeg",
       },
       {
         name: "Hladký minerální finish",
@@ -104,6 +111,7 @@ export const homepageData = {
         suitableFor: "Minimalistické interiéry, kuchyně, moderní byty",
         tags: ["Minimalismus", "Jemný odraz", "Čisté linie"],
         tone: "Mineral White",
+        image: "/images/povrchy/hladky-mineralni-finish.jpeg",
       },
       {
         name: "Povrch do koupelen",
@@ -111,6 +119,7 @@ export const homepageData = {
         suitableFor: "Koupelny, sprchové zóny, wellness",
         tags: ["Praktické řešení", "Elegantní vzhled", "Snadná údržba"],
         tone: "Wet Stone",
+        image: "/images/povrchy/povrch-do-koupelen.jpeg",
       },
       {
         name: "Zakázkový dekorativní povrch",
@@ -118,6 +127,7 @@ export const homepageData = {
         suitableFor: "Atypické projekty, architektonické realizace",
         tags: ["Na míru", "Kurátorský výběr", "Osobní přístup"],
         tone: "Custom Blend",
+        image: "/images/povrchy/zakazkovy-dekorativni-povrch.jpeg",
       },
     ] satisfies MaterialItem[],
   },
@@ -136,6 +146,7 @@ export const homepageData = {
           "Vhodné pro moderní i přírodní interiéry",
         ],
         imageLabel: "Obývací prostor / jemná stěrka",
+        image: "/images/prostory/obyvaci-prostor.jpeg",
       },
       {
         name: "Koupelny",
@@ -147,6 +158,7 @@ export const homepageData = {
           "Praktická údržba",
         ],
         imageLabel: "Koupelna / dekorativní povrch",
+        image: "/images/prostory/koupelna.jpeg",
       },
       {
         name: "Schodiště a chodby",
@@ -158,6 +170,7 @@ export const homepageData = {
           "Precizní napojení detailů",
         ],
         imageLabel: "Schodiště / chodba / detail napojení",
+        image: "/images/prostory/schodiste-chodba.jpeg",
       },
       {
         name: "Komerční interiéry",
@@ -169,6 +182,7 @@ export const homepageData = {
           "Důraz na detail a konzistenci",
         ],
         imageLabel: "Showroom / vstupní zóna",
+        image: "/images/prostory/komercni-interier.jpeg",
       },
     ] satisfies UseCase[],
   },
@@ -199,6 +213,7 @@ export const homepageData = {
         location: "Praha",
         surface: "Dekorativní stěrka / jemná textura",
         imageLabel: "Vila / koupelna / denní světlo",
+        image: "/images/realizace/vila-koupelna.jpeg",
       },
       {
         title: "Městský byt · obývací stěna",
@@ -206,6 +221,7 @@ export const homepageData = {
         location: "Brno",
         surface: "Betonová stěrka / hladký finish",
         imageLabel: "Byt / obývací stěna / měkké světlo",
+        image: "/images/realizace/byt-obyvaci-stena.jpeg",
       },
       {
         title: "Showroom · vstupní zóna",
@@ -214,6 +230,7 @@ export const homepageData = {
         location: "Praha",
         surface: "Dekorativní strukturovaný povrch",
         imageLabel: "Showroom / vstupní zóna / detail",
+        image: "/images/realizace/showroom-vstup.jpeg",
       },
     ] satisfies ProjectItem[],
   },
@@ -227,26 +244,31 @@ export const homepageData = {
         title: "Konzultace prostoru",
         description:
           "Projdeme typ prostoru, styl interiéru, očekávání i praktické požadavky.",
+        image: "/images/spoluprace/konzultace-prostoru.jpeg",
       },
       {
         title: "Výběr povrchu a tónu",
         description:
           "Navrhneme vhodné varianty podle světla, charakteru prostoru a způsobu použití.",
+        image: "/images/spoluprace/vyber-povrchu-a-tonu.jpeg",
       },
       {
         title: "Příprava podkladu",
         description:
           "Kvalitní výsledek stojí na správné přípravě. Hlídáme technický základ i detaily.",
+        image: "/images/spoluprace/priprava-podkladu.jpeg",
       },
       {
         title: "Aplikace a řemeslné zpracování",
         description:
           "Realizace probíhá s důrazem na čistotu práce, návaznosti a finální vzhled.",
+        image: "/images/spoluprace/aplikace-a-zpracovani.jpeg",
       },
       {
         title: "Předání a doporučení péče",
         description:
           "Předáme hotový povrch a doporučíme, jak o něj správně pečovat.",
+        image: "/images/spoluprace/predani-a-pece.jpeg",
       },
     ] satisfies ProcessStep[],
   },
@@ -300,13 +322,13 @@ export const homepageData = {
       "Jsme dva společníci, kteří spojují cit pro prostor s poctivým řemeslem. Na každé realizaci je pro nás důležitý výsledek i způsob, jakým k němu dojdeme.",
     people: [
       {
-        name: "[Jméno 1]",
+        name: "Jan",
         role: "Výběr povrchů, návrh řešení, konzultace",
         description:
           "Pomáhá klientům najít povrch, který bude fungovat dlouhodobě – vizuálně i prakticky.",
       },
       {
-        name: "[Jméno 2]",
+        name: "Michal",
         role: "Realizace, technické provedení, detail",
         description:
           "Hlídá kvalitu provedení od přípravy po finální detail, který dělá rozdíl.",

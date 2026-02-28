@@ -8,97 +8,59 @@ interface Props {
 }
 
 const { materials } = Astro.props;
-const firstItem = materials.items[0];
 ---
 
 <section
   id="materials"
   class="section-shell bg-bg-soft/60"
   data-materials-root
-  data-items={JSON.stringify(materials.items)}
 >
   <div class="container-page">
-    <div class="grid gap-10 lg:grid-cols-12 lg:gap-8">
-      <div class="lg:col-span-4">
-        <div class="lg:sticky lg:top-28">
-          <SectionHeading title={materials.title} description={materials.intro} />
+    <SectionHeading title={materials.title} description={materials.intro} />
 
-          <div class="surface-panel mt-6 p-5" data-material-detail>
-            <p class="editorial-caption" data-material-index>
-              {String(1).padStart(2, "0")} / {String(materials.items.length).padStart(2, "0")} • Aktivní
-              vzorek
-            </p>
-            <h3 class="mt-3 text-xl font-semibold leading-7 text-text" data-material-name>
-              {firstItem.name}
-            </h3>
-            <p class="mt-3 text-sm leading-6 text-text-muted" data-material-description>
-              {firstItem.description}
-            </p>
-            <p class="mt-4 text-sm leading-6 text-text">
-              <span class="font-medium">Vhodné pro:</span>
-              <span data-material-suitable> {firstItem.suitableFor}</span>
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2" data-material-tags>
-              {firstItem.tags.map((tag) => (
-                <span class="rounded-full bg-highlight px-3 py-1 text-xs font-medium text-text">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div class="mt-5 rounded-md border hairline bg-surface/80 px-3 py-2 text-xs text-text-muted">
-              Tón / reference: <span class="font-medium text-text" data-material-tone>{firstItem.tone}</span>
-            </div>
-          </div>
-
-          <div class="mt-6">
-            <ButtonLink href={materials.cta.href} label={materials.cta.label} variant="secondary" />
-          </div>
-          <p class="editorial-caption mt-8">
-            Task 02: interaktivní stack preview (GSAP scroll motion přijde v Task 03)
-          </p>
-        </div>
-      </div>
-
-      <div class="lg:col-span-8">
-        <div class="relative hidden min-h-[38rem] lg:block" data-material-stack-desktop>
-          {materials.items.map((item, index) => (
-            <button
-              type="button"
-              class="material-stack-card material-stack-card--desktop focus-ring absolute flex w-full max-w-[92%] flex-col rounded-lg border border-transparent bg-surface p-5 text-left shadow-soft transition"
-              data-material-card
-              data-index={String(index)}
-              data-active={index === 0 ? "true" : "false"}
-              aria-pressed={index === 0 ? "true" : "false"}
-              style={`top:${index * 46}px; left:${index * 14}px; z-index:${materials.items.length - index}; background-image: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.98)), radial-gradient(circle at ${20 + (index % 3) * 22}% ${16 + (index % 2) * 36}%, rgba(183,140,90,.09), transparent 48%);`}
-            >
+    <div class="mt-8">
+      <div class="relative hidden min-h-[46rem] lg:block" data-material-stack-desktop>
+        {materials.items.map((item, index) => (
+          <article
+            class="material-stack-card material-stack-card--desktop focus-ring absolute w-full max-w-[94%] overflow-hidden rounded-lg border border-transparent text-left shadow-soft transition"
+            data-material-card
+            data-index={String(index)}
+            tabindex="0"
+            style={`top:${index * 52}px; left:${index * 14}px; --stack-z:${materials.items.length - index}; background-image: linear-gradient(150deg, rgba(30,29,26,.03), rgba(30,29,26,.18)), url('${item.image}'); background-size:auto, cover; background-position:center; background-repeat:no-repeat;`}
+          >
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-black/8 to-transparent"></div>
+            <div class="material-info-glass absolute inset-x-4 bottom-4 p-4">
               <div class="flex items-start justify-between gap-4">
                 <div>
                   <p class="editorial-caption">{String(index + 1).padStart(2, "0")} / Vzorek</p>
                   <h3 class="mt-2 text-lg font-semibold leading-6 text-text">{item.name}</h3>
                   <p class="mt-2 text-sm leading-6 text-text-muted">{item.description}</p>
                 </div>
-                <div class="hidden rounded-full border hairline bg-surface/90 px-3 py-1 text-xs text-text-muted xl:block">
-                  {item.tone}
-                </div>
               </div>
               <div class="mt-4 flex flex-wrap gap-2">
                 {item.tags.map((tag) => (
-                  <span class="rounded-full bg-highlight px-3 py-1 text-xs font-medium text-text">
+                  <span class="rounded-full bg-highlight/95 px-3 py-1 text-xs font-medium text-text">
                     {tag}
                   </span>
                 ))}
               </div>
-              <p class="mt-4 text-sm leading-6 text-text-muted">{item.suitableFor}</p>
-            </button>
-          ))}
-        </div>
+              <p class="mt-4 text-sm leading-6 text-text">{item.suitableFor}</p>
+              <div class="mt-4 rounded-md border hairline bg-surface/70 px-3 py-2 text-xs text-text-muted">
+                Tón / reference: <span class="font-medium text-text">{item.tone}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
 
-        <div class="grid gap-4 lg:hidden" data-material-stack-mobile>
-          {materials.items.map((item, index) => (
-            <article
-              class="surface-panel flex h-full flex-col p-5"
-              style={`background-image: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.96)), radial-gradient(circle at ${20 + (index % 3) * 25}% ${18 + (index % 2) * 38}%, rgba(183,140,90,.09), transparent 48%);`}
-            >
+      <div class="grid gap-4 lg:hidden" data-material-stack-mobile>
+        {materials.items.map((item, index) => (
+          <article
+            class="surface-panel relative min-h-[27rem] overflow-hidden"
+            style={`background-image: linear-gradient(150deg, rgba(30,29,26,.03), rgba(30,29,26,.2)), url('${item.image}'); background-size:auto, cover; background-position:center; background-repeat:no-repeat;`}
+          >
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/32 via-black/10 to-transparent"></div>
+            <div class="material-info-glass absolute inset-x-3 bottom-3 flex flex-col p-4">
               <p class="editorial-caption">{String(index + 1).padStart(2, "0")} / Vzorek</p>
               <h3 class="mt-3 text-lg font-semibold leading-6 text-text">{item.name}</h3>
               <p class="mt-2 text-sm leading-6 text-text-muted">{item.description}</p>
@@ -107,109 +69,62 @@ const firstItem = materials.items[0];
               </p>
               <div class="mt-4 flex flex-wrap gap-2">
                 {item.tags.map((tag) => (
-                  <span class="rounded-full bg-highlight px-3 py-1 text-xs font-medium text-text">
+                  <span class="rounded-full bg-highlight/95 px-3 py-1 text-xs font-medium text-text">
                     {tag}
                   </span>
                 ))}
               </div>
               <div class="mt-auto pt-5">
-                <div class="rounded-md border hairline bg-surface/80 px-3 py-2 text-xs text-text-muted">
+                <div class="rounded-md border hairline bg-surface/70 px-3 py-2 text-xs text-text-muted">
                   Tón / reference: <span class="font-medium text-text">{item.tone}</span>
                 </div>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          </article>
+        ))}
       </div>
+    </div>
+
+    <div class="mt-8">
+      <ButtonLink href={materials.cta.href} label={materials.cta.label} variant="secondary" />
     </div>
   </div>
 </section>
 
-<script is:inline>
-  (() => {
-    const root = document.querySelector("[data-materials-root]");
-    if (!root || root.dataset.bound === "true") return;
-    if (!window.matchMedia("(min-width: 1024px)").matches) return;
-    root.dataset.bound = "true";
-
-    const items = JSON.parse(root.dataset.items || "[]");
-    if (!Array.isArray(items) || items.length === 0) return;
-
-    const detail = root.querySelector("[data-material-detail]");
-    const cards = Array.from(root.querySelectorAll("[data-material-card]"));
-    const indexEl = root.querySelector("[data-material-index]");
-    const nameEl = root.querySelector("[data-material-name]");
-    const descriptionEl = root.querySelector("[data-material-description]");
-    const suitableEl = root.querySelector("[data-material-suitable]");
-    const toneEl = root.querySelector("[data-material-tone]");
-    const tagsEl = root.querySelector("[data-material-tags]");
-
-    if (!detail || cards.length === 0) return;
-
-    const setActive = (index) => {
-      const safeIndex = Math.max(0, Math.min(items.length - 1, index));
-      const item = items[safeIndex];
-
-      if (indexEl) {
-        indexEl.textContent = `${String(safeIndex + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")} • Aktivní vzorek`;
-      }
-      if (nameEl) nameEl.textContent = item.name;
-      if (descriptionEl) descriptionEl.textContent = item.description;
-      if (suitableEl) suitableEl.textContent = ` ${item.suitableFor}`;
-      if (toneEl) toneEl.textContent = item.tone;
-
-      if (tagsEl) {
-        tagsEl.innerHTML = "";
-        item.tags.forEach((tag) => {
-          const span = document.createElement("span");
-          span.className = "rounded-full bg-highlight px-3 py-1 text-xs font-medium text-text";
-          span.textContent = tag;
-          tagsEl.append(span);
-        });
-      }
-
-      cards.forEach((card, cardIndex) => {
-        const active = cardIndex === safeIndex;
-        card.dataset.active = active ? "true" : "false";
-        card.setAttribute("aria-pressed", active ? "true" : "false");
-      });
-    };
-
-    cards.forEach((card, index) => {
-      card.addEventListener("click", () => setActive(index));
-      card.addEventListener("mouseenter", () => setActive(index));
-      card.addEventListener("focus", () => setActive(index));
-      card.addEventListener("keydown", (event) => {
-        if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
-        event.preventDefault();
-        const nextIndex =
-          event.key === "ArrowDown"
-            ? (index + 1) % cards.length
-            : (index - 1 + cards.length) % cards.length;
-        cards[nextIndex]?.focus();
-        setActive(nextIndex);
-      });
-    });
-  })();
-</script>
-
 <style>
   .material-stack-card--desktop {
+    z-index: var(--stack-z, 1);
     transform: translateY(0) scale(0.985);
+    min-height: 30rem;
     border-color: rgba(110, 106, 99, 0.14);
   }
 
-  .material-stack-card--desktop[data-active="true"] {
+  .material-stack-card--desktop:hover,
+  .material-stack-card--desktop:focus-visible {
     transform: translateY(-6px) scale(1);
     border-color: rgba(183, 140, 90, 0.35);
     box-shadow: var(--shadow-card);
   }
 
-  .material-stack-card--desktop[data-active="false"] {
-    opacity: 0.94;
-  }
-
   .material-stack-card--desktop:hover {
     opacity: 1;
+  }
+
+  .material-stack-card--desktop:hover,
+  .material-stack-card--desktop:focus-visible {
+    z-index: 60;
+  }
+
+  .material-info-glass {
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    background:
+      linear-gradient(140deg, rgba(255, 255, 255, 0.54), rgba(255, 255, 255, 0.3)),
+      linear-gradient(180deg, rgba(247, 244, 238, 0.78), rgba(247, 244, 238, 0.62));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      0 18px 32px rgba(30, 29, 26, 0.22);
+    backdrop-filter: blur(10px) saturate(118%);
+    -webkit-backdrop-filter: blur(10px) saturate(118%);
   }
 </style>

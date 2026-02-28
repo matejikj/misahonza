@@ -1,7 +1,6 @@
 ---
 import { homepageData } from "../../data/homepage";
 import ButtonLink from "../ui/ButtonLink.astro";
-import PlaceholderPanel from "../ui/PlaceholderPanel.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 
 interface Props {
@@ -24,8 +23,20 @@ const secondProject = projects.items[1] ?? projects.items[0];
       <div class="grid gap-6 lg:grid-cols-3">
       {projects.items.map((project, index) => (
         <article class="surface-panel overflow-hidden">
-          <div class="p-4">
-            <PlaceholderPanel label={project.imageLabel} ratio="landscape" />
+          <div class="relative overflow-hidden p-4">
+            <div class="relative aspect-[16/10] overflow-hidden rounded-md">
+              <img
+                src={project.image}
+                alt={`Realizace: ${project.title}`}
+                class="h-full w-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/24 via-transparent to-transparent"></div>
+              <div class="absolute inset-x-4 bottom-4 rounded-md border hairline bg-surface/86 px-3 py-2 text-sm text-text">
+                {project.imageLabel}
+              </div>
+            </div>
           </div>
           <div class="border-t hairline p-5">
             <div class="mb-3 flex items-center justify-between text-xs uppercase tracking-[0.18em] text-text-muted">
@@ -51,8 +62,14 @@ const secondProject = projects.items[1] ?? projects.items[0];
               <div class="projects-flip-card-inner" data-flip-card-inner>
                 <article class="projects-flip-face projects-flip-face-front surface-panel overflow-hidden" data-flip-face="front">
                   <div class="border-b hairline p-4">
-                    <div class="placeholder-ambient relative aspect-[16/10] overflow-hidden rounded-md">
-                      <div class="placeholder-texture absolute inset-0"></div>
+                    <div class="relative aspect-[16/10] overflow-hidden rounded-md">
+                      <img
+                        src={firstProject.image}
+                        alt={`Realizace: ${firstProject.title}`}
+                        class="h-full w-full object-cover object-center"
+                        data-face-image
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/24 via-transparent to-transparent"></div>
                       <div class="absolute inset-x-4 bottom-4 rounded-md border hairline bg-surface/85 p-3 backdrop-blur">
                         <p class="editorial-caption">Realizace / front</p>
                         <p class="mt-2 text-sm font-medium text-text" data-face-image-label>
@@ -77,8 +94,14 @@ const secondProject = projects.items[1] ?? projects.items[0];
 
                 <article class="projects-flip-face projects-flip-face-back surface-panel overflow-hidden" data-flip-face="back">
                   <div class="border-b hairline p-4">
-                    <div class="placeholder-ambient relative aspect-[16/10] overflow-hidden rounded-md">
-                      <div class="placeholder-texture absolute inset-0"></div>
+                    <div class="relative aspect-[16/10] overflow-hidden rounded-md">
+                      <img
+                        src={secondProject.image}
+                        alt={`Realizace: ${secondProject.title}`}
+                        class="h-full w-full object-cover object-center"
+                        data-face-image
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/24 via-transparent to-transparent"></div>
                       <div class="absolute inset-x-4 bottom-4 rounded-md border hairline bg-surface/85 p-3 backdrop-blur">
                         <p class="editorial-caption">Realizace / back</p>
                         <p class="mt-2 text-sm font-medium text-text" data-face-image-label>

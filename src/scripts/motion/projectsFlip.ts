@@ -6,6 +6,7 @@ type ProjectItem = {
   location: string;
   surface: string;
   imageLabel: string;
+  image: string;
 };
 
 function setFaceContent(face: HTMLElement | null, item: ProjectItem | undefined) {
@@ -14,13 +15,18 @@ function setFaceContent(face: HTMLElement | null, item: ProjectItem | undefined)
   const insight = face.querySelector<HTMLElement>("[data-face-insight]");
   const location = face.querySelector<HTMLElement>("[data-face-location]");
   const surface = face.querySelector<HTMLElement>("[data-face-surface]");
-  const image = face.querySelector<HTMLElement>("[data-face-image-label]");
+  const imageLabel = face.querySelector<HTMLElement>("[data-face-image-label]");
+  const image = face.querySelector<HTMLImageElement>("[data-face-image]");
 
   if (title) title.textContent = item.title;
   if (insight) insight.textContent = item.insight;
   if (location) location.textContent = item.location;
   if (surface) surface.textContent = item.surface;
-  if (image) image.textContent = item.imageLabel;
+  if (imageLabel) imageLabel.textContent = item.imageLabel;
+  if (image) {
+    image.src = item.image;
+    image.alt = `Realizace: ${item.title}`;
+  }
 }
 
 function setMeta(root: HTMLElement, item: ProjectItem, activeIndex: number, total: number) {

@@ -1,7 +1,6 @@
 ---
 import { homepageData } from "../../data/homepage";
 import ButtonLink from "../ui/ButtonLink.astro";
-import PlaceholderPanel from "../ui/PlaceholderPanel.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 
 interface Props {
@@ -35,8 +34,15 @@ const firstStep = process.steps[0];
             <p class="mt-2 text-sm leading-6 text-text-muted" data-process-step-description>
               {firstStep.description}
             </p>
-            <div class="mt-5">
-              <PlaceholderPanel label="Detail realizace / aktivní krok" ratio="landscape" />
+            <div class="mt-5 overflow-hidden rounded-md border hairline">
+              <img
+                src={firstStep.image}
+                alt={`Proces spolupráce: ${firstStep.title}`}
+                class="h-44 w-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
+                data-process-step-image
+              />
             </div>
           </div>
           <ul class="mt-5 space-y-2 text-sm text-text-muted">
@@ -73,7 +79,15 @@ const firstStep = process.steps[0];
                 <p class="mt-2 text-sm leading-6 text-text-muted">{step.description}</p>
               </div>
               <div class="hidden md:block">
-                <PlaceholderPanel label={`Detail ${index + 1}`} ratio="square" class="w-28" />
+                <div class="w-28 overflow-hidden rounded-md border hairline">
+                  <img
+                    src={step.image}
+                    alt={`Proces spolupráce: ${step.title}`}
+                    class="h-28 w-full object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
               </div>
             </article>
           ))}
@@ -92,7 +106,15 @@ const firstStep = process.steps[0];
               </summary>
               <div class="space-y-4 px-5 pb-5">
                 <p class="text-sm leading-6 text-text-muted">{step.description}</p>
-                <PlaceholderPanel label={`Detail ${index + 1}`} ratio="landscape" />
+                <div class="overflow-hidden rounded-md border hairline">
+                  <img
+                    src={step.image}
+                    alt={`Proces spolupráce: ${step.title}`}
+                    class="h-52 w-full object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
               </div>
             </details>
           ))}
@@ -112,6 +134,7 @@ const firstStep = process.steps[0];
     const indexEl = root.querySelector<HTMLElement>("[data-process-step-index]");
     const titleEl = root.querySelector<HTMLElement>("[data-process-step-title]");
     const descriptionEl = root.querySelector<HTMLElement>("[data-process-step-description]");
+    const imageEl = root.querySelector<HTMLImageElement>("[data-process-step-image]");
 
     if (steps.length && cards.length) {
       const setActive = (index: number) => {
@@ -121,6 +144,10 @@ const firstStep = process.steps[0];
         if (indexEl) indexEl.textContent = `${String(safeIndex + 1).padStart(2, "0")} / ${String(steps.length).padStart(2, "0")}`;
         if (titleEl) titleEl.textContent = step.title;
         if (descriptionEl) descriptionEl.textContent = step.description;
+        if (imageEl) {
+          imageEl.src = step.image;
+          imageEl.alt = `Proces spolupráce: ${step.title}`;
+        }
 
         cards.forEach((card, cardIndex) => {
           const active = cardIndex === safeIndex;
