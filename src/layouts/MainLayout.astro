@@ -14,7 +14,7 @@ const {
 
 const site = Astro.site ?? (import.meta.env.PUBLIC_SITE_URL ? new URL(import.meta.env.PUBLIC_SITE_URL) : undefined);
 const canonicalUrl = site ? new URL(Astro.url.pathname, site).toString() : undefined;
-const faviconUrl = withBase("/images/kabe_farben_slavicin_logo.jpg");
+const faviconUrl = withBase("/favicon.ico");
 ---
 
 <!doctype html>

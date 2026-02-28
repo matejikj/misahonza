@@ -17,5 +17,5 @@ const site =
 export default defineConfig({
   integrations: [tailwind()],
   site,
-  base: isCi && repository && !isUserOrOrgPages ? `/${repository}` : "/",
+  base: isCi && repository && !isUserOrOrgPages ? `/${repository}/` : "/",
 });

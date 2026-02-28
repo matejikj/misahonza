@@ -22,4 +22,18 @@ Tady máš 5 přesných promptů na tenhle směr:
 
 5. `Boutique luxury interior abstraction, monolithic concrete wall and floor continuity, refined mineral grain, soft volumetric side light, calm premium atmosphere, SAFE ZONE: left 45% reserved for UI copy (flat tonal area, minimal visual noise), right side contains dramatic texture transitions and wow effect highlights, no people, no logos, no text, 4k, 16:9`
 
-Pokud chceš, doplním i 5 negativních promptů (co explicitně zakázat), aby výsledky byly konzistentnější.
+Skvělé. Tady máš 6 hotových promptů pro jednotnou sadu vizuálů do sekce materiálů:
+
+1. `Jemná betonová stěrka, sametově matný dekorativní povrch, velmi jemná kresba, tón Warm Sand, klidný a nadčasový vzhled, měkké difuzní denní světlo, luxusní minimalistický styl, makro textura bez objektů a bez lidí, čisté pozadí, vysoký detail, photorealistic, 4k, poměr 4:3`
+
+2. `Strukturovaná betonová stěrka, výraznější plastická textura s hlubším stínováním, tón Stone Shadow, designový charakter, akcentní luxusní dojem, boční světlo zvýrazňující reliéf, bez nábytku, bez lidí, čistá materiálová ukázka, photorealistic, 4k, poměr 4:3`
+
+3. `Dekorativní cloud efekt, měkké tonalitní přechody, jemná živá struktura povrchu, tón Cloud Ivory, elegantní reprezentativní vzhled, měkké ambientní světlo, čistá abstraktní plocha bez objektů, bez textu, bez lidí, ultra detail, photorealistic, 4k, poměr 4:3`
+
+4. `Hladký minerální finish, subtilní minimalistická textura s velmi jemným odrazem světla, tón Mineral White, čistý moderní charakter, nízký kontrast, měkké rozptýlené světlo, materiálový close-up bez objektů, bez lidí, photorealistic, 4k, poměr 4:3`
+
+5. `Dekorativní povrch do koupelen, elegantní voděodolně působící betonová stěrka, tón Wet Stone, hladký až jemně strukturovaný finish, čistý spa/wellness charakter, jemné odlesky vlhkého prostředí, bez lidí, bez nábytku, bez textu, photorealistic, 4k, poměr 4:3`
+
+6. `Zakázkový dekorativní povrch, unikátní ruční kresba a vrstvení textury, tón Custom Blend (greige + stone + warm undertone), prémiový architektonický výraz, sofistikované světlo a stín, abstraktní materiálová ukázka bez objektů, bez lidí, photorealistic, 4k, poměr 4:3`
+
+Pokud chceš, připravím i variantu „strict set“ (stejný úhel, stejné světlo, stejná kompozice), aby všech 6 obrázků působilo jako jedna kolekce.
