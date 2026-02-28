@@ -34,6 +34,10 @@ body {
     radial-gradient(circle at 100% 20%, rgba(143, 163, 164, 0.08), transparent 38%);
 }
 
+body.mobile-menu-open {
+  overflow: hidden;
+}
+
 a,
 button,
 summary {

@@ -31,38 +31,81 @@ const { nav } = Astro.props;
     </nav>
 
     <div class="flex items-center gap-2">
-      <details class="mobile-nav relative md:hidden">
-        <summary
-          class="focus-ring inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center rounded-full border hairline bg-surface px-3 text-text list-none"
-          aria-label="Otevřít navigaci"
-        >
-          <span aria-hidden="true">≡</span>
-        </summary>
-        <nav
-          aria-label="Mobilní navigace"
-          class="absolute right-0 top-[calc(100%+10px)] z-50 min-w-[220px] rounded-lg border hairline bg-surface p-3 shadow-card"
-        >
-          <ul class="space-y-1">
-            {nav.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  class="focus-ring block rounded-md px-3 py-2 text-sm font-medium text-text-muted transition hover:bg-highlight hover:text-text"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-            <li class="pt-1">
-              <ButtonLink href="#contact" label="Konzultace" class="w-full justify-center" />
-            </li>
-          </ul>
-        </nav>
-      </details>
+      <button
+        type="button"
+        class="mobile-menu-toggle focus-ring inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center rounded-full border hairline bg-surface px-3 text-text md:hidden"
+        aria-label="Otevřít navigaci"
+        aria-controls="mobile-menu-panel"
+        aria-expanded="false"
+        data-mobile-menu-toggle
+      >
+        <span class="mobile-menu-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
       <ButtonLink href="#contact" label="Konzultace" class="hidden md:inline-flex" />
     </div>
   </div>
 </header>
+
+<div
+  id="mobile-menu-panel"
+  class="mobile-menu-panel md:hidden"
+  data-mobile-menu-panel
+  data-state="closed"
+>
+  <button
+    type="button"
+    class="mobile-menu-backdrop"
+    aria-label="Zavřít navigaci"
+    data-mobile-menu-close
+  ></button>
+  <div
+    class="mobile-menu-sheet surface-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobilní navigace"
+    tabindex="-1"
+    data-mobile-menu-sheet
+  >
+    <div class="flex items-center justify-between gap-3 border-b hairline px-5 py-4">
+      <p class="editorial-caption">Sculpted Light</p>
+      <button
+        type="button"
+        class="focus-ring inline-flex min-h-[40px] min-w-[40px] items-center justify-center rounded-full border hairline bg-surface text-text"
+        aria-label="Zavřít menu"
+        data-mobile-menu-close
+      >
+        ✕
+      </button>
+    </div>
+
+    <nav aria-label="Mobilní navigace" class="px-4 pb-4 pt-3">
+      <ul class="space-y-2">
+        {nav.map((item, index) => (
+          <li>
+            <a
+              href={item.href}
+              class="mobile-menu-link focus-ring block rounded-md px-3 py-3 text-base font-medium text-text-muted transition hover:bg-highlight hover:text-text"
+              style={`--delay:${index * 48}ms`}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-5 border-t hairline pt-4">
+        <ButtonLink href="#contact" label="Nezávazná konzultace" class="w-full justify-center" />
+        <p class="mt-3 text-sm text-text-muted">
+          Popiš stručně prostor a očekávání. Navrhneme vhodný další krok.
+        </p>
+      </div>
+    </nav>
+  </div>
+</div>
 
 <script is:inline>
   (() => {
@@ -86,11 +129,190 @@ const { nav } = Astro.props;
 
     update();
     window.addEventListener("scroll", update, { passive: true });
+
+    const toggleButton = header.querySelector("[data-mobile-menu-toggle]");
+    const panel = document.querySelector("[data-mobile-menu-panel]");
+    const sheet = panel?.querySelector("[data-mobile-menu-sheet]");
+    const closeButtons = Array.from(document.querySelectorAll("[data-mobile-menu-close]"));
+    const menuLinks = Array.from(document.querySelectorAll(".mobile-menu-link"));
+    const focusables = () =>
+      Array.from(sheet?.querySelectorAll("a[href], button:not([disabled])") || []);
+
+    if (!(toggleButton instanceof HTMLButtonElement) || !panel || !(sheet instanceof HTMLElement)) return;
+
+    let isMenuOpen = false;
+
+    const setMenuState = (open, { restoreFocus = false } = {}) => {
+      isMenuOpen = open;
+      panel.dataset.state = open ? "open" : "closed";
+      header.dataset.menu = open ? "open" : "closed";
+      toggleButton.setAttribute("aria-expanded", open ? "true" : "false");
+      document.body.classList.toggle("mobile-menu-open", open);
+
+      if (open) {
+        window.requestAnimationFrame(() => {
+          const first = focusables()[0];
+          if (first instanceof HTMLElement) {
+            first.focus();
+          } else {
+            sheet.focus();
+          }
+        });
+      } else if (restoreFocus) {
+        toggleButton.focus();
+      }
+    };
+
+    setMenuState(false);
+
+    toggleButton.addEventListener("click", () => {
+      setMenuState(!isMenuOpen);
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", () => setMenuState(false, { restoreFocus: true }));
+    });
+
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", () => setMenuState(false));
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && isMenuOpen) {
+        event.preventDefault();
+        setMenuState(false, { restoreFocus: true });
+      }
+    });
+
+    panel.addEventListener("keydown", (event) => {
+      if (event.key !== "Tab" || !isMenuOpen) return;
+      const focusable = focusables();
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        setMenuState(false);
+      }
+    });
   })();
 </script>
 
 <style>
-  .mobile-nav summary::-webkit-details-marker {
-    display: none;
+  .mobile-menu-icon {
+    display: inline-grid;
+    gap: 4px;
+  }
+
+  .mobile-menu-icon > span {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    border-radius: 999px;
+    background: currentColor;
+    transition:
+      transform 220ms ease,
+      opacity 220ms ease;
+  }
+
+  [data-site-header][data-menu="open"] .mobile-menu-icon > span:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+  }
+
+  [data-site-header][data-menu="open"] .mobile-menu-icon > span:nth-child(2) {
+    opacity: 0;
+  }
+
+  [data-site-header][data-menu="open"] .mobile-menu-icon > span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .mobile-menu-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    justify-content: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition:
+      opacity 220ms ease,
+      visibility 220ms ease;
+  }
+
+  .mobile-menu-panel[data-state="open"] {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .mobile-menu-backdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(183, 140, 90, 0.15), transparent 42%),
+      rgba(30, 29, 26, 0.32);
+    opacity: 0;
+    transition: opacity 280ms ease;
+  }
+
+  .mobile-menu-sheet {
+    position: relative;
+    z-index: 1;
+    margin: 0.75rem;
+    width: min(88vw, 360px);
+    max-height: calc(100dvh - 1.6rem);
+    overflow: auto;
+    transform: translateX(108%);
+    opacity: 0;
+    transition:
+      transform 280ms cubic-bezier(0.2, 0.72, 0.18, 1),
+      opacity 220ms ease;
+  }
+
+  .mobile-menu-link {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      transform 240ms ease,
+      opacity 220ms ease;
+    transition-delay: var(--delay, 0ms);
+  }
+
+  .mobile-menu-panel[data-state="open"] .mobile-menu-backdrop {
+    opacity: 1;
+  }
+
+  .mobile-menu-panel[data-state="open"] .mobile-menu-sheet {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .mobile-menu-panel[data-state="open"] .mobile-menu-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu-backdrop,
+    .mobile-menu-sheet,
+    .mobile-menu-link,
+    .mobile-menu-icon > span {
+      transition: none;
+    }
   }
 </style>
