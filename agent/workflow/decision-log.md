@@ -9,3 +9,4 @@ Zapisuj pouze rozhodnutí, která mění scope, UX tok, technický přístup neb
 - `Task 01` implementován jako nový Astro + Tailwind static-first scaffold se všemi homepage sekcemi ve fallback/stationary variantě; motion logika zůstává plánovaná pro `task-02` a `task-03`.
 - `Task 02` implementován bez GSAP: sticky header scroll state, interaktivní desktop materials stack preview (pre-motion) a přístupné use-case tabs přes inline JS. GSAP scroll-driven motion zůstává v `Task 03`.
 - `Task 03` implementován s `GSAP + ScrollTrigger` lazy-loaded přes izolované motion moduly (`src/scripts/motion/*`). Místo framework islands je použité `IntersectionObserver` + dynamic import (ekvivalent `client:visible` pro vanilla Astro sekce).
+- `Task 04` dokončen jako conversion layer druhé poloviny homepage: process sticky+active step (desktop) s mobile accordion fallbackem, trust CTA panel, founders humanized framing, FAQ + Care Guide a finální CTA orientované na „první krok“.

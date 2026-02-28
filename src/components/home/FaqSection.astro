@@ -18,6 +18,24 @@ const { faq } = Astro.props;
         <div class="mt-6">
           <ButtonLink href={faq.cta.href} label={faq.cta.label} variant="secondary" />
         </div>
+        <div class="surface-panel mt-6 p-5">
+          <p class="editorial-caption">Care guide</p>
+          <h3 class="mt-3 text-base font-semibold">Jak pečovat o povrch po realizaci</h3>
+          <ul class="mt-4 space-y-2 text-sm leading-6 text-text-muted">
+            <li class="flex items-start gap-2">
+              <span class="mt-[8px] h-1.5 w-1.5 rounded-full bg-accent"></span>
+              Používej jemné čisticí prostředky bez abrazivních částic.
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-[8px] h-1.5 w-1.5 rounded-full bg-accent"></span>
+              Silnější znečištění řeš co nejdříve, ideálně lokálně.
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-[8px] h-1.5 w-1.5 rounded-full bg-accent"></span>
+              Po předání vždy dostaneš doporučení péče pro konkrétní typ povrchu.
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div class="lg:col-span-8 space-y-3">
@@ -38,4 +56,3 @@ const { faq } = Astro.props;
     </div>
   </div>
 </section>
-

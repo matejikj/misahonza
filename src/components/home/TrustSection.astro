@@ -1,5 +1,6 @@
 ---
 import { homepageData } from "../../data/homepage";
+import ButtonLink from "../ui/ButtonLink.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 
 interface Props {
@@ -39,6 +40,15 @@ const { trust } = Astro.props;
         </blockquote>
       ))}
     </div>
+
+    <div class="surface-panel mt-6 flex flex-col items-start gap-4 p-5 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="editorial-caption">Další krok</p>
+        <p class="mt-2 text-sm text-text-muted">
+          Popiš stručně prostor a cílový styl. Navrhneme vhodný postup a další krok bez závazku.
+        </p>
+      </div>
+      <ButtonLink href="#contact" label="Nezávazná konzultace" />
+    </div>
   </div>
 </section>
-
