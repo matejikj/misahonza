@@ -34,6 +34,12 @@ body {
     radial-gradient(circle at 100% 20%, rgba(143, 163, 164, 0.08), transparent 38%);
 }
 
+a,
+button,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
 a {
   color: inherit;
 }
@@ -94,15 +100,15 @@ a {
 }
 
 .cta-primary {
-  @apply inline-flex items-center justify-center rounded-full bg-text px-5 py-3 text-sm font-semibold text-white transition hover:opacity-95;
+  @apply inline-flex min-h-[44px] items-center justify-center rounded-full bg-text px-5 py-3 text-sm font-semibold text-white transition hover:opacity-95;
 }
 
 .cta-secondary {
-  @apply inline-flex items-center justify-center rounded-full border hairline bg-surface px-5 py-3 text-sm font-semibold text-text transition hover:bg-highlight;
+  @apply inline-flex min-h-[44px] items-center justify-center rounded-full border hairline bg-surface px-5 py-3 text-sm font-semibold text-text transition hover:bg-highlight;
 }
 
 .chip {
-  @apply inline-flex items-center rounded-full border hairline bg-surface px-4 py-2 text-sm font-medium text-text-muted;
+  @apply inline-flex min-h-[44px] items-center rounded-full border hairline bg-surface px-4 py-2 text-sm font-medium text-text-muted;
 }
 
 .chip-active {
@@ -132,3 +138,36 @@ a {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
 }
 
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-140%);
+  border-radius: 999px;
+  border: 1px solid rgba(110, 106, 99, 0.35);
+  background: #fff;
+  padding: 0.65rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-soft);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

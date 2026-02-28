@@ -17,7 +17,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 
 <MainLayout>
   <Header nav={homepageData.nav} />
-  <main>
+  <main id="main-content">
     <HeroSection hero={homepageData.hero} />
     <MaterialsSection materials={homepageData.materials} />
     <UseCasesSection useCases={homepageData.useCases} />
@@ -31,4 +31,3 @@ import MainLayout from "../layouts/MainLayout.astro";
   </main>
   <Footer footer={homepageData.footer} />
 </MainLayout>
-

@@ -2,8 +2,8 @@
 
 ## Stav projektu
 
-- Fáze: `Task 04 completed (trust/founders/faq/conversion)`
-- Aktivní task: `Žádný (připraveno na Task 05)`
+- Fáze: `Task 05 completed (polish/a11y/seo/performance)`
+- Aktivní task: `Žádný (homepage připravena pro review)`
 - Poslední update: `2026-02-23`
 
 ## Hotovo
@@ -24,10 +24,14 @@
 - Founders sekce: osobnější framing a role-based highlight tagy
 - FAQ sekce: doplněná Care Guide karta vedle FAQ akordeonu
 - Finální CTA sekce: jasně formulovaný „první krok“, klikatelné kontaktní údaje a konzistentní akce
+- Layout SEO polish: canonical/OG/Twitter metadata + robots + theme-color
+- A11y polish: skip link, zlepšená mobilní navigace bez JS placeholderu, 44px hit-area pro klíčové akce
+- Reduced-motion polish: globální fallback pravidla pro animace/transition + smooth-scroll disable
+- Performance polish: desktop-only inicializace Material stack JS a zachování no-JS fallbacků
 
 ## Další doporučený krok
 
-- Pokračovat `agent/tasks/task-05-polish-accessibility-performance-release.md`
+- Klientský review průchod (obsah, brand assety, reálné kontaktní údaje)
 
 ## Blokery / otevřené otázky
 
@@ -42,3 +46,4 @@
 - `Task 02` používá lehký inline JS pro header, materials a use-cases; GSAP/ScrollTrigger zatím není zaveden.
 - `Task 03` používá lazy init přes `IntersectionObserver` + dynamické importy motion modulů (prakticky `client:visible` chování bez framework integrace).
 - `Task 04` drží druhou polovinu homepage conversion-first: průběh spolupráce, důvěra, lidský kontext a jasné CTA na první krok.
+- `Task 05` doplnil produkční minimum pro SEO/a11y/reduced-motion; doporučené další ověření je ruční QA na cílových zařízeních a Lighthouse kontrola v CI.

@@ -31,13 +31,34 @@ const { nav } = Astro.props;
     </nav>
 
     <div class="flex items-center gap-2">
-      <button
-        type="button"
-        class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border hairline bg-surface text-text md:hidden"
-        aria-label="Menu (Task 01 placeholder)"
-      >
-        <span aria-hidden="true">≡</span>
-      </button>
+      <details class="mobile-nav relative md:hidden">
+        <summary
+          class="focus-ring inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center rounded-full border hairline bg-surface px-3 text-text list-none"
+          aria-label="Otevřít navigaci"
+        >
+          <span aria-hidden="true">≡</span>
+        </summary>
+        <nav
+          aria-label="Mobilní navigace"
+          class="absolute right-0 top-[calc(100%+10px)] z-50 min-w-[220px] rounded-lg border hairline bg-surface p-3 shadow-card"
+        >
+          <ul class="space-y-1">
+            {nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="focus-ring block rounded-md px-3 py-2 text-sm font-medium text-text-muted transition hover:bg-highlight hover:text-text"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+            <li class="pt-1">
+              <ButtonLink href="#contact" label="Konzultace" class="w-full justify-center" />
+            </li>
+          </ul>
+        </nav>
+      </details>
       <ButtonLink href="#contact" label="Konzultace" class="hidden md:inline-flex" />
     </div>
   </div>
@@ -67,3 +88,9 @@ const { nav } = Astro.props;
     window.addEventListener("scroll", update, { passive: true });
   })();
 </script>
+
+<style>
+  .mobile-nav summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

@@ -10,6 +10,9 @@ const {
   title = "Sculpted Light | Luxusní betonové a dekorativní stěrky",
   description = "Scroll-as-story homepage pro studio dekorativních stěrek se zaměřením na světlo, texturu a řemeslný detail.",
 } = Astro.props;
+
+const site = Astro.site ?? (import.meta.env.PUBLIC_SITE_URL ? new URL(import.meta.env.PUBLIC_SITE_URL) : undefined);
+const canonicalUrl = site ? new URL(Astro.url.pathname, site).toString() : undefined;
 ---
 
 <!doctype html>
@@ -19,12 +22,22 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#F7F4EE" />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:locale" content="cs_CZ" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Přeskočit na obsah</a>
     <slot />
   </body>
 </html>
-

@@ -129,6 +129,7 @@ const firstItem = materials.items[0];
   (() => {
     const root = document.querySelector("[data-materials-root]");
     if (!root || root.dataset.bound === "true") return;
+    if (!window.matchMedia("(min-width: 1024px)").matches) return;
     root.dataset.bound = "true";
 
     const items = JSON.parse(root.dataset.items || "[]");
