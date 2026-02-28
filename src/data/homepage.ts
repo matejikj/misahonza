@@ -61,7 +61,7 @@ export const homepageData = {
     { label: "FAQ", href: "#faq" },
   ],
   hero: {
-    eyebrow: "Sculpted Light",
+    eyebrow: "Stěrky KF design",
     title: "Povrchy, které změní světlo v atmosféru.",
     subtitle:
       "Luxusní betonové a dekorativní stěrky pro interiéry, které působí čistě, klidně a nadčasově.",
@@ -359,23 +359,21 @@ export const homepageData = {
     title: "Domluvme povrch, který bude fungovat ve vašem prostoru.",
     description:
       "Ozvěte se nám s krátkým popisem projektu nebo pošlete fotografie prostoru. Navrhneme vhodný typ povrchu, doporučíme postup a domluvíme další krok.",
-    primaryCta: { label: "Nezávazná poptávka", href: "mailto:info@domena.cz" },
+    primaryCta: { label: "Nezávazná poptávka", href: "mailto:info@zakdesign.cz" },
     secondaryCta: {
       label: "Poslat inspiraci / fotky prostoru",
-      href: "mailto:info@domena.cz?subject=Inspirace%20a%20fotky%20prostoru",
+      href: "mailto:info@zakdesign.cz?subject=Inspirace%20a%20fotky%20prostoru",
     },
     details: [
-      { label: "Telefon", value: "+420 XXX XXX XXX" },
-      { label: "E-mail", value: "info@domena.cz" },
-      { label: "Region", value: "Praha a okolí" },
-      { label: "Odpověď", value: "obvykle do 24 hodin" },
+      { label: "Showroom", value: "📍Slavičín - po telefonické domluvě 🤳🏻" },
+      { label: "☎️ Telefon", value: "+420 776 726 111" },
+      { label: "📨 E-mail", value: "info@zakdesign.cz" },
     ],
   },
   footer: {
-    brand: "Sculpted Light",
+    brand: "Stěrky KF design",
     note:
       "Luxusní betonové a dekorativní stěrky s důrazem na světlo, texturu a řemeslný detail.",
     swatches: ["Cloud Ivory", "Warm Sand", "Mineral White", "Stone Shadow"],
   },
 } as const;
-

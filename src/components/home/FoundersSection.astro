@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { founders } = Astro.props;
+const founderPhotos = ["/images/persons/misa.jpeg", "/images/persons/honza.jpeg"];
+const founderPhotoPositions = ["50% 22%", "50% 16%"];
 ---
 
 <section id="founders" class="section-shell bg-bg-soft/40">
@@ -18,11 +20,15 @@ const { founders } = Astro.props;
     <div class="mt-8 grid gap-4 lg:grid-cols-2">
       {founders.people.map((person, idx) => (
         <article class="surface-panel overflow-hidden">
-          <div class="placeholder-ambient relative aspect-[5/4] border-b hairline">
-            <div class="placeholder-texture absolute inset-4 rounded-lg opacity-70"></div>
-            <div class="absolute left-4 top-4 rounded-full bg-white/85 px-3 py-1 text-xs font-medium shadow-soft">
-              Portrét {idx + 1} / placeholder
-            </div>
+          <div class="relative aspect-[5/4] border-b hairline bg-bg-soft/40">
+            <img
+              src={founderPhotos[idx] ?? founderPhotos[0]}
+              alt={`Portrét ${person.name}`}
+              class="h-full w-full object-cover object-center"
+              style={`object-position: ${founderPhotoPositions[idx] ?? "50% 20%"};`}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div class="p-5">
             <h3 class="text-lg font-semibold">{person.name}</h3>
